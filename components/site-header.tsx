@@ -11,7 +11,8 @@ const navItems = [
 ];
 
 export function SiteHeader() {
-  const pathname = usePathname();
+  const rawPathname = usePathname() || '/';
+  const pathname = rawPathname.replace(/\/$/,'') || '/';
   const menuId = useId();
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
@@ -51,6 +52,19 @@ export function SiteHeader() {
       document.body.classList.remove('menu-open');
     };
   }, [mobileOpen]);
+
+  // Add a page-specific class to the body so the entire page can change theme per route
+  useEffect(() => {
+    const pageClass = pathname === '/' ? 'page-home' : `page-${pathname.replace(/^\//, '').replace(/\//g, '-')}`;
+    const known = ['page-home', 'page-about', 'page-contact'];
+
+    known.forEach((c) => document.body.classList.remove(c));
+    document.body.classList.add(pageClass);
+
+    return () => {
+      document.body.classList.remove(pageClass);
+    };
+  }, [pathname]);
 
   return (
     <header className={`site-header ${isScrolled ? 'site-header-scrolled' : ''} ${pathname !== '/' ? 'site-header-has-active' : ''}`}>
