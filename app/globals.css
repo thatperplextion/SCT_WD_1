@@ -215,39 +215,35 @@ main {
   padding: 8.5rem 1rem 4rem;
 }
 
-/* Full-page overlays per route */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  transition: background 240ms ease, opacity 240ms ease;
-  opacity: 0.0;
-}
-
+/* Per-page full backgrounds and theme variables */
 main {
   position: relative;
   z-index: 1;
 }
 
-/* Home: subtle (default) */
-body.page-home::before {
-  opacity: 0.0;
+/* Home: keep default dark theme (variables inherit from :root) */
+body.page-home {
+  /* no change */
 }
 
-/* About page: warm high-contrast overlay */
-body.page-about::before {
-  opacity: 1;
-  background: radial-gradient(circle at 10% 10%, rgba(255,212,0,0.12), transparent 18%),
-              linear-gradient(135deg, rgba(255,212,0,0.06), rgba(255,138,0,0.04));
+/* About page: full high-contrast warm theme */
+body.page-about {
+  background: linear-gradient(180deg, #ffd400 0%, #ffb200 100%);
+  color: #03110c;
+  --text: #03110c;
+  --muted: rgba(3,17,12,0.8);
+  --panel: rgba(255,255,255,0.06);
+  --panel-strong: rgba(255,255,255,0.08);
 }
 
-/* Contact page: cool spotlight using the accent colors */
-body.page-contact::before {
-  opacity: 1;
-  background: radial-gradient(circle at 80% 20%, rgba(255,138,0,0.10), transparent 18%),
-              linear-gradient(180deg, rgba(255,138,0,0.04), rgba(0,0,0,0));
+/* Contact page: high-contrast orange-to-deep theme */
+body.page-contact {
+  background: linear-gradient(180deg, #ff8a00 0%, #ff4d00 100%);
+  color: #03110c;
+  --text: #03110c;
+  --muted: rgba(3,17,12,0.8);
+  --panel: rgba(255,255,255,0.06);
+  --panel-strong: rgba(255,255,255,0.08);
 }
 
 .hero {
