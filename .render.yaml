@@ -1,0 +1,12 @@
+# Render service definition for automatic deploys from this repo
+services:
+  - type: web
+    name: sk-1
+    env: node
+    plan: free
+    branch: main
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_VERSION
+        value: "24.x"
